@@ -118,22 +118,10 @@
   (setq aw-dispatch-always t)
   )
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(flycheck-lintr-linters "with_defaults(line_length_linter(120))")
- '(package-selected-packages
-   (quote
-    (ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
- '(tramp-verbose 3))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;; Exec-path from shell
+(use-package exec-path-from-shell
+  :ensure t
+  )
 
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
@@ -283,9 +271,27 @@
 (setq org-confirm-babel-evaluate nil)
 (setq org-src-window-setup 'current-window)
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(flycheck-lintr-linters "with_defaults(line_length_linter(120))")
+ '(package-selected-packages
+   (quote
+    (ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
+ '(tramp-verbose 3 nil (tramp)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
 ;; Misc stuff
 (global-hl-line-mode 1)
 (set-face-background 'hl-line "#000000")
 
 (if (file-exists-p "~/.emacs.d/.emacs_local")
     (load "~/.emacs.d/.emacs_local"))
+
