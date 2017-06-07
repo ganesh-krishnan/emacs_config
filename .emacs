@@ -121,10 +121,10 @@
 ;; Exec-path from shell
 (use-package exec-path-from-shell
   :ensure t
-  )
-
-(when (memq window-system '(mac ns))
+  :config
+  (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
+  )
 
 ;; Eshell auto-completion stuff
 (defun ac-pcomplete ()
@@ -247,6 +247,13 @@
 (use-package ein
   :ensure t
   )
+
+;; Python stuff
+(use-package jedi
+  :ensure t
+  :init
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (add-hook 'python-mode-hook 'jedi:ac-setup))
 
 ;;Org stuff
 (org-babel-do-load-languages
