@@ -255,6 +255,12 @@
   (add-hook 'python-mode-hook 'jedi:setup)
   (add-hook 'python-mode-hook 'jedi:ac-setup))
 
+;; Elpy
+(use-package elpy
+  :ensure t
+  :config
+  (elpy-enable))
+
 ;;Org stuff
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -286,7 +292,7 @@
  '(flycheck-lintr-linters "with_defaults(line_length_linter(120))")
  '(package-selected-packages
    (quote
-    (ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
+    (elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
  '(tramp-verbose 3 nil (tramp)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -298,6 +304,9 @@
 ;; Misc stuff
 (global-hl-line-mode 1)
 (set-face-background 'hl-line "#000000")
+
+(setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "--simple-prompt -i")
 
 (if (file-exists-p "~/.emacs.d/.emacs_local")
     (load "~/.emacs.d/.emacs_local"))
