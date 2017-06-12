@@ -83,6 +83,12 @@
   (helm-projectile-on)
   )
 
+;; Swiper-helm
+(use-package swiper-helm
+  :ensure t
+  :bind (("C-s" . swiper))
+  )
+
 (use-package ess
   :ensure t
   :init
@@ -184,8 +190,14 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 
 ;; Helm stuff
-(require 'helm)
-(require 'helm-config)
+(use-package helm
+  :ensure t
+  :config
+  (progn
+    (require 'helm-config)
+    )
+  :bind (("C-x C-f" . helm-find-files))
+  )
 
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
 ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
