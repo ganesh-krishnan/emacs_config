@@ -318,7 +318,7 @@
 (set-face-background 'hl-line "#000000")
 
 (setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "--simple-prompt -i")
+      python-shell-interpreter-args "")
 
 (if (file-exists-p "~/.emacs.d/.emacs_local")
     (load "~/.emacs.d/.emacs_local"))
