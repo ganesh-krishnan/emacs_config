@@ -89,10 +89,8 @@
   :bind (("C-s" . swiper))
   )
 
-(use-package ess
-  :ensure t
-  :init
-  (require 'ess-site)
+(use-package ess-site
+  :ensure ess
   :config
   (ess-toggle-underscore nil)
   )
