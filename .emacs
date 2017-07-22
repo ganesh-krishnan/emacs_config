@@ -287,6 +287,12 @@
    (ein . t)
    ))
 
+;; aucTEX
+(use-package tex
+  :defer t
+  :ensure auctex
+  )
+
 ;; dumb-jump
 (use-package dumb-jump
   :ensure t
@@ -312,7 +318,7 @@
  '(flycheck-lintr-linters "with_defaults(line_length_linter(120))")
  '(package-selected-packages
    (quote
-    (stan-snippets stan-mode elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
+    (auctex stan-snippets stan-mode elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
  '(tramp-verbose 3 nil (tramp)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
