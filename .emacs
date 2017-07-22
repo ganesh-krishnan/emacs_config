@@ -70,6 +70,7 @@
   :ensure t
   :config
   (projectile-global-mode)
+  (setq projectile-file-exists-remote-cache-expire nil)
   )
 
 (use-package helm-ag
