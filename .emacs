@@ -96,6 +96,12 @@
   (ess-toggle-underscore nil)
   )
 
+(use-package polymode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
+  )
+
 ;; Multiple cursors
 (use-package multiple-cursors
   :ensure t
