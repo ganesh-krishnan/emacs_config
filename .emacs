@@ -294,6 +294,10 @@
  '((R . t)
    (ein . t)
    ))
+(setq org-src-fontify-natively t)
+(setq org-src-tab-acts-natively t)
+(setq org-confirm-babel-evaluate nil)
+(setq org-src-window-setup 'current-window)
 
 ;; aucTEX
 (use-package tex
@@ -311,11 +315,6 @@
          ("M-g z" . dumb-jump-go-prefer-external-other-window))
   :config (setq dumb-jump-selector 'helm)
   :ensure)
-
-(setq org-src-fontify-natively t)
-(setq org-src-tab-acts-natively t)
-(setq org-confirm-babel-evaluate nil)
-(setq org-src-window-setup 'current-window)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
