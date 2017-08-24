@@ -46,24 +46,17 @@
 
 ;; Underscores in database names mess up the prompt
 (add-hook 'sql-interactive-mode-hook
-            (lambda ()
-              (setq sql-prompt-regexp "^[_[:alpha:]]*[=][#>] ")
-              (setq sql-prompt-cont-regexp "^[_[:alpha:]]*[-][#>] ")
-	      (toggle-truncate-lines t))) ;; Truncate long line output
-
-(defun connect-replica ()
-  (interactive)
-  (my-sql-connect 'postgres 'replica))
-
-(defun connect-redshift ()
-  (interactive)
-  (my-sql-connect 'postgres 'redshift))
+	  (lambda ()
+	    (setq sql-prompt-regexp "^[_[:alpha:]]*[=][#>] ")
+	    (setq sql-prompt-cont-regexp "^[_[:alpha:]]*[-][#>] ")
+	    (toggle-truncate-lines t))) ;; Truncate long line output
 
 (defun my-sql-connect (product connection)
   ;; remember to set the sql-product, otherwise, it will fail for the first time
   ;; you call the function
   (setq sql-product product)
   (sql-connect connection))
+
 
 ;; Projectile config
 (use-package projectile
@@ -132,7 +125,7 @@
 (use-package ace-window
   :ensure t
   :bind
-    (("M-s" . ace-window))
+  (("M-s" . ace-window))
   :config
   (setq aw-dispatch-always t)
   )
@@ -142,7 +135,7 @@
   :ensure t
   :config
   (when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
+    (exec-path-from-shell-initialize))
   )
 
 ;; Eshell auto-completion stuff
