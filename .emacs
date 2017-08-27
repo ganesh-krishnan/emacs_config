@@ -112,6 +112,7 @@
   (ac-config-default)
   (add-to-list 'ac-modes 'sql-interactive-mode)
   (add-to-list 'ac-modes 'sql-mode)
+  (setq ac-modes (delq 'python-mode ac-modes))
   )
 
 ;; Ace Window keybindings and customizations
