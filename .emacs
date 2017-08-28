@@ -283,17 +283,45 @@
 	     realgud:pdb))
 
 ;; Python stuff
-(use-package jedi
-  :ensure t
-  :init
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (add-hook 'python-mode-hook 'jedi:ac-setup))
-
 ;; Elpy
 (use-package elpy
   :ensure t
   :config
-  (elpy-enable))
+  (elpy-enable)
+  (setq elpy-rpc-backend "jedi")
+  (elpy-use-ipython)
+  (add-hook 'inferior-python-mode-hook
+	    (lambda ()
+	      (company-mode -1)
+	      )
+	    )
+  (defun elpy-shell-send-paragraph ()
+    "Send the current paragraph to the python shell."
+    (interactive)
+    (if (python-info-current-line-empty-p)
+  	(message "Not in a paragraph")
+      (let ((beg (progn (backward-paragraph) (point)))
+  	    (end (progn (forward-paragraph) (point))))
+  	(elpy-shell-get-or-create-process)
+  	(python-shell-send-string (elpy-shell--region-without-indentation beg end))
+  	(elpy-shell-display-buffer))))
+  (defun elpy-shell-send-region-or-buffer nil
+    "Sends from python-mode buffer to a python shell, intelligently."
+    (interactive)
+    (elpy-shell-get-or-create-process)
+    (cond ((region-active-p)
+  	   (setq deactivate-mark t)
+  	   (python-shell-send-region (region-beginning) (region-end))
+  	   (python-nav-forward-block)
+  	   ) (t (elpy-shell-send-paragraph))))
+  :bind (:map python-mode-map ("C-c C-l" . python-shell-send-buffer))
+  )
+
+;; Yasnippet
+(use-package yasnippet
+  :ensure t
+  :init
+  (yas-global-mode 1))
 
 ;;Org stuff
 (org-babel-do-load-languages
