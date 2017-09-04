@@ -130,6 +130,22 @@
   (setq aw-dispatch-always t)
   )
 
+;; Turn on winner mode
+(use-package winner
+  :ensure t
+  :init
+  (winner-mode)
+  )
+
+;; Hydra
+(use-package hydra
+  :ensure t
+  :config
+  (if (file-exists-p "~/emacs_config/hydras.el")
+      (load "~/emacs_config/hydras.el")
+    )
+  )
+
 ;; Exec-path from shell
 (use-package exec-path-from-shell
   :ensure t
