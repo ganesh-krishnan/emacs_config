@@ -318,11 +318,7 @@
   :config
   (setq elpy-rpc-backend "jedi")
   (elpy-use-ipython)
-  (add-hook 'inferior-python-mode-hook
-	    (lambda ()
-	      (company-mode -1)
-	      )
-	    )
+  (add-hook 'inferior-python-mode-hook 'company-mode)
   (defun elpy-shell-send-paragraph ()
     "Send the current paragraph to the python shell."
     (interactive)
