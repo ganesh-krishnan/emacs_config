@@ -302,8 +302,9 @@
 ;; Elpy
 (use-package elpy
   :ensure t
-  :config
+  :init
   (elpy-enable)
+  :config
   (setq elpy-rpc-backend "jedi")
   (elpy-use-ipython)
   (add-hook 'inferior-python-mode-hook
