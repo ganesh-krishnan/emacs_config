@@ -205,7 +205,18 @@
 (defvar ac-source-pcomplete
   '((candidates . ac-pcomplete)))
 
-(add-hook 'eshell-mode-hook #'(lambda () (setq ac-sources '(ac-source-pcomplete))))
+(add-hook 'eshell-mode-hook
+	  #'(lambda ()
+	      (setq ac-sources '(ac-source-pcomplete))
+               ;; Helm completion with pcomplete
+               (setq eshell-cmpl-ignore-case t)
+               (eshell-cmpl-initialize)
+               (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
+               ;; Helm lisp completion
+               (define-key eshell-mode-map [remap eshell-complete-lisp-symbol] 'helm-lisp-completion-at-point)
+               ;; Helm completion on eshell history.
+               (define-key eshell-mode-map (kbd "M-p") 'helm-eshell-history)))
+
 (add-to-list 'ac-modes 'eshell-mode)
 
 ;; Magit Keybinding
