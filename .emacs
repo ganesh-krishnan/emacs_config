@@ -101,7 +101,6 @@
 (use-package polymode
   :ensure t
   :config
-  (
   (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
   )
 
