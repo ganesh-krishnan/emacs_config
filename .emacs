@@ -367,6 +367,10 @@
 (setq org-confirm-babel-evaluate nil)
 (setq org-src-window-setup 'current-window)
 
+(use-package ob-async
+  :ensure t
+  )
+
 ;; aucTEX
 (use-package tex
   :defer t
