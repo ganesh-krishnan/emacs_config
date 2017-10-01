@@ -369,6 +369,10 @@
 (setq org-confirm-babel-evaluate nil)
 (setq org-src-window-setup 'current-window)
 
+(use-package ox-gfm
+  :ensure t
+  )
+
 (use-package ob-async
   :ensure t
   )
