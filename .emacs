@@ -243,6 +243,10 @@
 ;; Magit Keybinding
 (global-set-key (kbd "C-x g") 'magit-status)
 
+(use-package github-browse-file
+  :ensure t
+  )
+
 ;; Helm stuff
 (use-package helm
   :ensure t
@@ -413,7 +417,7 @@
  '(flycheck-lintr-linters "with_defaults(line_length_linter(120))")
  '(package-selected-packages
    (quote
-    (expand-region ob-async markdown-mode org auto-org-md hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
+    (github-browse-file ox-gfm hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
  '(tramp-verbose 3 nil (tramp)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
