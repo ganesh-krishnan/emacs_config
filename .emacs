@@ -26,6 +26,10 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+;; Download try-package
+(use-package try
+  :ensure t)
+
 ;; Enable tramp
 (use-package tramp
   :ensure t
