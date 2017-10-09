@@ -122,7 +122,8 @@
 ;; Expand region
 (use-package expand-region
   :ensure t
-  :bind (("C-=" . er/expand_region))
+  :config
+  (global-set-key (kbd "C-=") 'er/expand-region)
   )
 
 ;; Autocomplete
