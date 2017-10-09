@@ -27,6 +27,11 @@
 (use-package try
   :ensure t)
 
+;; Trim whitespace
+(use-package ws-butler
+  :ensure t
+  )
+
 ;; Enable tramp
 (use-package tramp
   :ensure t
