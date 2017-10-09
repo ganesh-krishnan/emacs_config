@@ -7,9 +7,6 @@
 ;; Enable recursive minibuffer
 (setq enable-recursive-minibuffers t)
 
-;; Delete whitespace before saving
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -418,7 +415,7 @@
  '(flycheck-lintr-linters "with_defaults(line_length_linter(120))")
  '(package-selected-packages
    (quote
-    (github-browse-file ox-gfm hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
+    (ws-butler github-browse-file ox-gfm hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
  '(tramp-verbose 3 nil (tramp)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
