@@ -30,6 +30,8 @@
 ;; Trim whitespace
 (use-package ws-butler
   :ensure t
+  :config
+  (ws-butler-global-mode)
   )
 
 ;; Enable tramp
@@ -301,10 +303,6 @@
 (helm-mode 1)
 (put 'scroll-left 'disabled nil)
 
-;;Dired stuff
-(put 'dired-find-alternate-file 'disabled nil)
-(add-hook 'dired-mode-hook 'auto-revert-mode)
-
 ;; ;; ob-ipython
 ;; (use-package ob-ipython
 ;;   :ensure t
@@ -435,6 +433,10 @@
 
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "")
+
+;;;; Dired stuff
+(put 'dired-find-alternate-file 'disabled nil)
+(add-hook 'dired-mode-hook 'auto-revert-mode)
 
 (if (file-exists-p "~/.emacs.d/.emacs_local")
     (load "~/.emacs.d/.emacs_local"))
