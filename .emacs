@@ -440,3 +440,6 @@
 
 (if (file-exists-p "~/.emacs.d/.emacs_local")
     (load "~/.emacs.d/.emacs_local"))
+
+;;;; Ediff
+(setq ediff-split-window-function (quote split-window-horizontally))
