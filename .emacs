@@ -374,15 +374,21 @@
   (yas-global-mode 1))
 
 ;;Org stuff
+(setq org-src-fontify-natively t)
+(setq org-src-tab-acts-natively t)
+(setq org-confirm-babel-evaluate nil)
+(setq org-src-window-setup 'current-window)
+(custom-theme-set-faces 'zenburn
+                        `(org-level-1 ((t (:inherit outline-1 :height 1.4))))
+			`(org-level-2 ((t (:inherit outline-2 :height 1.3))))
+			`(org-level-3 ((t (:inherit outline-3 :height 1.2))))
+			`(org-level-4 ((t (:inherit outline-4 :height 1.1)))))
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((R . t)
    (ein . t)
    ))
-(setq org-src-fontify-natively t)
-(setq org-src-tab-acts-natively t)
-(setq org-confirm-babel-evaluate nil)
-(setq org-src-window-setup 'current-window)
 
 (use-package ox-gfm
   :ensure t
