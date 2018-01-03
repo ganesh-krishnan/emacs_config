@@ -384,7 +384,9 @@
 
 ;;Org stuff
 (if (file-exists-p "~/emacs_config/org-kanban.el")
-    (load "~/emacs_config/org-kanban.el"))
+    (progn
+      (load "~/emacs_config/org-kanban.el")
+      (define-key org-mode-map (kbd "C-c k") 'org-kanban/shift)))
 
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
