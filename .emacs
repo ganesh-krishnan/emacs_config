@@ -383,6 +383,9 @@
   (yas-global-mode 1))
 
 ;;Org stuff
+(if (file-exists-p "~/emacs_config/org-kanban.el")
+    (load "~/emacs_config/org-kanban.el"))
+
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
 (setq org-confirm-babel-evaluate nil)
