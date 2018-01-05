@@ -386,7 +386,14 @@
 (if (file-exists-p "~/emacs_config/org-kanban.el")
     (progn
       (load "~/emacs_config/org-kanban.el")
-      (define-key org-mode-map (kbd "C-c k") 'org-kanban/shift)))
+      (define-key org-mode-map (kbd "C-c k") 'org-kanban/shift)
+      (fset 'kanban-create
+	    (lambda (&optional arg) "Keyboard macro."
+	      (interactive "p")
+	      (kmacro-exec-ring-item
+	       (quote ([33554435 33554435 1 42 32 79 80 84 73 79 78 83 32 7 5 19 107 97 110 98 97 110 return 3 3] 0 "%d"))
+	       arg)))
+      (define-key org-mode-map (kbd "C-c c") 'kanban-create)))
 
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
