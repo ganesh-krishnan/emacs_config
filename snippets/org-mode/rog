@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: graphic
+# key: rog
+# group: Org
+# --
+:results output graphics :file

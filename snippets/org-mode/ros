@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: silent
+# key: ros
+# group: Org
+# --
+:results output silent
