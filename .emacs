@@ -409,6 +409,7 @@
  'org-babel-load-languages
  '((R . t)
    (ein . t)
+   (stan .t)
    ))
 
 (use-package ox-gfm
