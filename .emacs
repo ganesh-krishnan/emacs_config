@@ -395,6 +395,9 @@
 	       arg)))
       (define-key org-mode-map (kbd "C-c c") 'kanban-create)))
 
+(if (file-exists-p "~/emacs_config/org-mind-map.el")
+    (load "~/emacs_config/org-mind-map.el"))
+
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
 (setq org-confirm-babel-evaluate nil)
@@ -410,6 +413,7 @@
  '((R . t)
    (ein . t)
    (stan .t)
+   (dot . t)
    ))
 
 (use-package ox-gfm
