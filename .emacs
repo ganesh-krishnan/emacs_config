@@ -54,6 +54,10 @@
 ;; Setup SQL - this is because of a quirk with Postgres
 (setenv "DYLD_LIBRARY_PATH" "/usr/local/Cellar/postgresql/9.5.4_1/lib/")
 
+(if (file-exists-p "~/emacs_config/sql-indent.el")
+    (progn
+      (load "~/emacs_config/sql-indent.el")))
+
 ;; Underscores in database names mess up the prompt
 (add-hook 'sql-interactive-mode-hook
 	  (lambda ()
