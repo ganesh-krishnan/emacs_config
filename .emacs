@@ -400,8 +400,6 @@
 	       arg)))
       (define-key org-mode-map (kbd "C-c c") 'kanban-create)))
 
-(if (file-exists-p "~/emacs_config/org-mind-map.el")
-    (load "~/emacs_config/org-mind-map.el"))
 ;; Org work timer stuff
 (add-hook 'org-clock-in-prepare-hook
 	  (lambda ()
@@ -437,6 +435,9 @@
 (use-package ob-async
   :ensure t
   )
+
+(if (file-exists-p "~/emacs_config/org-mind-map.el")
+    (load "~/emacs_config/org-mind-map.el"))
 
 ;; aucTEX
 (use-package tex

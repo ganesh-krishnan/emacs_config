@@ -125,7 +125,7 @@
 
 (require 'dash)
 (require 'org)
-
+(require 'ox-org)
 
 (defconst org-mind-map-version "0.1")
 
