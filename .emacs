@@ -401,6 +401,15 @@
 
 (if (file-exists-p "~/emacs_config/org-mind-map.el")
     (load "~/emacs_config/org-mind-map.el"))
+;; Org work timer stuff
+(add-hook 'org-clock-in-prepare-hook
+	  (lambda ()
+	    (org-timer-set-timer)))
+
+(add-hook 'org-timer-done-hook
+	  (lambda ()
+	    (org-clock-out)))
+;;
 
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
