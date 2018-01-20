@@ -14,7 +14,8 @@
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("marmalade" . "https://marmalade-repo.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")
-			 ("melpa-stable" . "http://stable.melpa.org/packages/")))
+			 ("melpa-stable" . "http://stable.melpa.org/packages/")
+			 ("org" . "https://orgmode.org/elpa/")))
 
 (package-initialize)
 
