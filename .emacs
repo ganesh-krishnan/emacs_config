@@ -354,6 +354,12 @@
 ;; Python stuff
 (setq python-shell-enable-font-lock nil)
 
+(defun start-lore ()
+  (interactive)
+  (run-python "lore console --simple-prompt")
+  )
+(define-key python-mode-map (kbd "C-c l") 'start-lore)
+
 ;; Elpy
 (use-package elpy
   :ensure t
