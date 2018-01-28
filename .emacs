@@ -361,7 +361,8 @@
   (elpy-enable)
   :config
   (setq elpy-rpc-backend "jedi")
-  (elpy-use-ipython)
+  (setq python-shell-interpreter "jupyter"
+      python-shell-interpreter-args "console --simple-prompt")
   (add-hook 'inferior-python-mode-hook 'company-mode)
   (defun elpy-shell-send-paragraph ()
     "Send the current paragraph to the python shell."
@@ -469,7 +470,7 @@
  '(flycheck-lintr-linters "with_defaults(line_length_linter(120))")
  '(package-selected-packages
    (quote
-    (undo-tree avy ws-butler github-browse-file ox-gfm hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
+    (smartparens undo-tree avy ws-butler github-browse-file ox-gfm hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
  '(tramp-verbose 3 nil (tramp)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -481,9 +482,6 @@
 ;; Misc stuff
 (global-hl-line-mode 1)
 (set-face-background 'hl-line "#000000")
-
-(setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "")
 
 ;;;; Dired stuff
 (put 'dired-find-alternate-file 'disabled nil)
