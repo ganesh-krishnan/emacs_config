@@ -412,8 +412,10 @@
 
 (add-hook 'org-timer-done-hook
 	  (lambda ()
-	    (org-clock-out)))
-;;
+	    (if (org-clocking-p)
+		(org-clock-out)
+	      )
+	    ))
 
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
