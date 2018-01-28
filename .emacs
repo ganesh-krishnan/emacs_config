@@ -329,6 +329,10 @@
 ;; EIN
 (use-package ein
   :ensure t
+  :config
+  (setq ein:use-auto-complete-superpack t)
+  (setq ein:use-smartrep t)
+  (setq ein:completion-backend 'ein:use-ac-jedi-backend)
   )
 
 ;; Stan
