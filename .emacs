@@ -360,12 +360,6 @@
 ;; Python stuff
 (setq python-shell-enable-font-lock nil)
 
-(defun start-lore ()
-  (interactive)
-  (run-python "lore console --simple-prompt")
-  )
-(define-key python-mode-map (kbd "C-c l") 'start-lore)
-
 ;; Elpy
 (use-package elpy
   :ensure t
@@ -376,6 +370,12 @@
   (setq python-shell-interpreter "jupyter"
       python-shell-interpreter-args "console --simple-prompt")
   (add-hook 'inferior-python-mode-hook 'company-mode)
+
+  (defun start-lore ()
+    (interactive)
+    (run-python "lore console --simple-prompt")
+    )
+
   (defun elpy-shell-send-paragraph ()
     "Send the current paragraph to the python shell."
     (interactive)
@@ -395,7 +395,9 @@
   	   (python-shell-send-region (region-beginning) (region-end))
   	   (python-nav-forward-block)
   	   ) (t (elpy-shell-send-paragraph))))
-  :bind (:map python-mode-map ("C-c C-l" . python-shell-send-buffer))
+  :bind (:map python-mode-map
+	      ("C-c C-l" . python-shell-send-buffer)
+	      ("C-c l" . start-lore))
   )
 
 ;; Yasnippet
