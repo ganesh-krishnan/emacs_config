@@ -326,6 +326,12 @@
 ;;    ))
 ;;   )
 
+;; Smartrep
+;; Omit prefix keys - useful for ein
+(use-package smartrep
+  :ensure t
+  )
+
 ;; EIN
 (use-package ein
   :ensure t
