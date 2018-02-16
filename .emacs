@@ -420,16 +420,32 @@
       (define-key org-mode-map (kbd "C-c c") 'kanban-create)))
 
 ;; Org work timer stuff
-(add-hook 'org-clock-in-prepare-hook
-	  (lambda ()
-	    (org-timer-set-timer)))
+(use-package org-pomodoro
+  :ensure t
+  :init
+  (setq org-pomodoro-ticking-sound-p t)
+  (setq org-pomodoro-ticking-sound "/Users/ganeshkrishnan/.emacs.d/elpa/org-pomodoro-20171108.1314/resources/ocean_waves.wav")
+  (setq org-pomodoro-keep-killed-pomodoro-time t)
+  )
 
-(add-hook 'org-timer-done-hook
-	  (lambda ()
-	    (if (org-clocking-p)
-		(org-clock-out)
-	      )
-	    ))
+(defun gk/org-pomodoro-ask (n)
+  (interactive "nHow many minutes? ")
+  (setq org-pomodoro-length n)
+  (org-pomodoro)
+  )
+
+(define-key org-mode-map (kbd "C-c C-x t") 'gk/org-pomodoro-ask)
+
+;; Modify org-pomodoro-finished to not start breaks
+(defun org-pomodoro-finished ()
+  "Is invoked when a pomodoro was finished successfully.
+This may send a notification, play a sound and start a pomodoro break."
+  (unless org-pomodoro-clock-break
+    (org-clock-out nil t))
+  (org-pomodoro-reset)
+  (org-pomodoro-update-mode-line)
+  (org-agenda-maybe-redo)
+  (run-hooks 'org-pomodoro-finished-hook))
 
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
@@ -486,7 +502,7 @@
  '(flycheck-lintr-linters "with_defaults(line_length_linter(120))")
  '(package-selected-packages
    (quote
-    (smartparens undo-tree avy ws-butler github-browse-file ox-gfm hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
+    (org-pomodoro smartrep smartparens undo-tree avy ws-butler github-browse-file ox-gfm hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
  '(tramp-verbose 3 nil (tramp)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
