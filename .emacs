@@ -519,8 +519,8 @@ This may send a notification, play a sound and start a pomodoro break."
 (put 'dired-find-alternate-file 'disabled nil)
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 
-(if (file-exists-p "~/.emacs.d/.emacs_local")
-    (load "~/.emacs.d/.emacs_local"))
+(if (file-exists-p "~/.emacs.d/.emacs_local.el")
+    (load "~/.emacs.d/.emacs_local.el"))
 
 ;;;; Ediff
 (setq ediff-split-window-function (quote split-window-horizontally))
