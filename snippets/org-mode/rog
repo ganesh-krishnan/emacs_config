@@ -3,4 +3,4 @@
 # key: rog
 # group: Org
 # --
-:results output graphics :file
+:results output graphics :file `(gk/search-file-name "" "fig")`
