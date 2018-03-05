@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: kanban
+# key: kanban
+# group: Org
+# --
+#+TODO: OPTIONS(o) WIP(w) | DONE(d) CANCELED(c)
+
+* OPTIONS Daily Review
+* OPTIONS Metrics Review
+* OPTIONS Power up on data
+
+* Tracker
+#+BEGIN: kanban
+#+END
