@@ -471,32 +471,6 @@ This may send a notification, play a sound and start a pomodoro break."
    (dot . t)
    ))
 
-;; Function to automatically generate filenames for org-babel images
-(defun gk/search-file-name (dirname fname)
-  "This function generates a path DIRNAME/FNAME##.png,
-   where ## is a sequencial number in the directory.
-   For example, if there are fig1.png fig2.png fig4.png and
-   you give fig as FNAME, this function returns fig3.png(missing number).
-   If there are fig1.png fig2.png fig3.png, this returns fig4.png.
-   If there are no files, this returns fig1.png."
-
-  (setq string (directory-files dirname nil (concat fname "[0-9]+\\.png") t))
-  (if (not string) (concat dirname fname "1.png")
-    (progn
-      (setq number-list
-            (mapcar '(lambda (x)
-                       (string-match (concat fname "\\([0-9]+\\)\\.png") x)
-                       (match-string 1 x))
-                    string))
-      (setq w1 (sort (mapcar 'parse-integer number-list) '<))
-
-      (setq missing nil)
-      (loop for j from 1 to (length w1) do
-            (if (not (equal j (elt w1 (- j 1))))
-                (progn (setq missing j) (return missing))))
-      (if (not missing) (setq missing (+ 1 (car (last w1)))))
-      (concat dirname fname (number-to-string missing) ".png"))))
-
 (use-package ox-gfm
   :ensure t
   )
