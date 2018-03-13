@@ -340,6 +340,11 @@
   (setq ein:use-auto-complete-superpack t)
   (setq ein:use-smartrep t)
   (setq ein:completion-backend 'ein:use-ac-jedi-backend)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((ein . t)
+     ))
+  (require 'ein-connect)
   )
 
 ;; Stan
