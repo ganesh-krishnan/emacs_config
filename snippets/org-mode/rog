@@ -3,4 +3,4 @@
 # key: rog
 # group: Org
 # --
-:results output graphics :file `(gk/search-file-name "" "fig")`
+:results output graphics :file ${1:$$(let ((temporary-file-directory "./")) (make-temp-file "fig" nil ".png"))}
