@@ -4,10 +4,11 @@
 # group: Org
 # --
 #+TODO: OPTIONS(o) WIP(w) | DONE(d) CANCELED(c)
+#+TAGS: MEETING(m) WORK(w) STUDY(s) TROUBLESHOOT(t) REVIEW(r) OTHER(o)
 
-* OPTIONS Daily Review
-* OPTIONS Metrics Review
-* OPTIONS Power up on data
+* OPTIONS Daily Review                                               :REVIEW:
+* OPTIONS Metrics Review                                               :WORK:
+* OPTIONS Power up on data                                            :STUDY:
 
 * Tracker
 #+BEGIN: kanban
