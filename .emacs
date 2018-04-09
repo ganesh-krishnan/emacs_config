@@ -454,7 +454,6 @@ This may send a notification, play a sound and start a pomodoro break."
   (org-agenda-maybe-redo)
   (run-hooks 'org-pomodoro-finished-hook))
 
-(setq org-agenda-files (directory-files "~/diary/" t ".org$" t))
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
 (setq org-src-preserve-indentation t)
