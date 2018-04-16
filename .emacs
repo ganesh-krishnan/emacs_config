@@ -175,15 +175,6 @@
   (winner-mode)
   )
 
-;; Hydra
-(use-package hydra
-  :ensure t
-  :config
-  (if (file-exists-p "~/emacs_config/hydras.el")
-      (load "~/emacs_config/hydras.el")
-    )
-  )
-
 ;; Exec-path from shell
 (use-package exec-path-from-shell
   :ensure t
@@ -500,6 +491,15 @@ This may send a notification, play a sound and start a pomodoro break."
          ("M-g z" . dumb-jump-go-prefer-external-other-window))
   :config (setq dumb-jump-selector 'helm)
   :ensure)
+
+;; Hydra
+(use-package hydra
+  :ensure t
+  :config
+  (if (file-exists-p "~/emacs_config/hydras.el")
+      (load "~/emacs_config/hydras.el")
+    )
+  )
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
