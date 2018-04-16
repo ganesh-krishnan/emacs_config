@@ -445,6 +445,8 @@ This may send a notification, play a sound and start a pomodoro break."
   (org-agenda-maybe-redo)
   (run-hooks 'org-pomodoro-finished-hook))
 
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
 (if (file-exists-p "~/org/work.org")
     (setq org-agenda-files (list "~/org/work.org"))
 (setq org-src-fontify-natively t)
