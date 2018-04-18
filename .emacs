@@ -255,6 +255,10 @@
   :ensure t
   )
 
+;; Recentf to open recently viewed files
+(recentf-mode 1)
+(setq-default recent-save-file "~/.emacs.d/recentf")
+
 ;; Helm stuff
 (use-package helm
   :ensure t
@@ -262,8 +266,13 @@
   (progn
     (require 'helm-config)
     )
+  (setq helm-mini-default-sources '(helm-source-buffers-list
+				    helm-source-recentf
+				    helm-source-bookmarks
+				    helm-source-buffer-not-found))
   :bind (("C-x C-f" . helm-find-files)
-	 ("M-y" . helm-show-kill-ring))
+	 ("M-y" . helm-show-kill-ring)
+	 ("C-x b" . helm-mini))
   )
 
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
