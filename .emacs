@@ -373,8 +373,8 @@
   (elpy-enable)
   :config
   (setq elpy-rpc-backend "jedi")
-  (setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "--pylab")
+  (setq python-shell-interpreter "ipython")
+;      python-shell-interpreter-args "--pylab")
   (setq elpy-shell-use-project-root nil)
   (add-hook 'inferior-python-mode-hook 'company-mode)
 
@@ -407,6 +407,13 @@
 	      ("C-c l" . start-lore))
   )
 
+;; Eyebrowse
+(use-package eyebrowse
+  :ensure t
+  :init
+  (eyebrowse-mode t)
+  )
+
 ;; Yasnippet
 (use-package yasnippet
   :ensure t
@@ -418,13 +425,12 @@
     (progn
       (load "~/emacs_config/org-kanban.el")
       (define-key org-mode-map (kbd "C-c k") 'org-kanban/shift)
-      (fset 'kanban-create
+      (fset 'gk/listify
 	    (lambda (&optional arg) "Keyboard macro."
 	      (interactive "p")
 	      (kmacro-exec-ring-item
-	       (quote ([33554435 33554435 1 42 32 79 80 84 73 79 78 83 32 7 5 19 107 97 110 98 97 110 return 3 3] 0 "%d"))
-	       arg)))
-      (define-key org-mode-map (kbd "C-c c") 'kanban-create)))
+	       (quote ([33554435 33554435 1 42 42 32 79 80 84 73 79 78 83 32 7 5] 0 "%d")) arg)))
+      (define-key org-mode-map (kbd "C-c c") 'gk/listify)))
 
 ;; Org work timer stuff
 (use-package org-pomodoro
@@ -457,7 +463,7 @@ This may send a notification, play a sound and start a pomodoro break."
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 (if (file-exists-p "~/org/work.org")
-    (setq org-agenda-files (list "~/org/work.org"))
+    (setq org-agenda-files (list "~/org/work.org")))
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
 (setq org-src-preserve-indentation t)
