@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: rev
+# key: rev
+# group: Org
+# --
+** OPTIONS Daily Review                                               :REVIEW:
+** OPTIONS Metrics Review                                               :WORK:
+** OPTIONS Power up on data                                            :STUDY:
+** OPTIONS Interruptions                                               :OTHER:
