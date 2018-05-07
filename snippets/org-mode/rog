@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: graphic
+# name: rog
 # key: rog
 # group: Org
 # --
-:results output graphics :file ${1:$$(((temporary-file-directory "./")) (make-temp-file "fig" nil ".png"))}
+:results output graphics :file ${1:$$(file-name-nondirectory (let ((temporary-file-directory "./")) (make-temp-file "fig" nil ".png")))}
