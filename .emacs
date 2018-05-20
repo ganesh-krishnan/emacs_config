@@ -374,7 +374,7 @@
   :config
   (setq elpy-rpc-backend "jedi")
   (setq python-shell-interpreter "ipython")
-;      python-shell-interpreter-args "--pylab")
+  (setq python-shell-interpreter-args "--simple-prompt")
   (setq elpy-shell-use-project-root nil)
   (add-hook 'inferior-python-mode-hook 'company-mode)
 
