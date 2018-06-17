@@ -446,7 +446,16 @@
   (org-pomodoro)
   )
 
+(defun gk/org-pomodoro-toggle-sounds ()
+  (interactive)
+  (cond ((eq org-pomodoro-play-sounds t)
+	 (setq org-pomodoro-play-sounds nil))
+	((eq org-pomodoro-play-sounds nil)
+	 (setq org-pomodoro-play-sounds t)))
+  )
+
 (define-key org-mode-map (kbd "C-c C-x t") 'gk/org-pomodoro-ask)
+(define-key org-mode-map (kbd "C-c C-x s") 'gk/org-pomodoro-toggle-sounds)
 
 ;; Modify org-pomodoro-finished to not start breaks
 (defun org-pomodoro-finished ()
