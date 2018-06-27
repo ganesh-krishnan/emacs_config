@@ -417,6 +417,19 @@
 	      ("C-c l" . start-lore))
   )
 
+
+;; Perspective
+(use-package perspective
+  :ensure t
+  :init
+  (persp-mode)
+  )
+
+;; Perspective Projectile
+(use-package persp-projectile
+  :ensure t
+)
+
 ;; Eyebrowse
 (use-package eyebrowse
   :ensure t
