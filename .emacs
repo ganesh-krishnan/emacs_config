@@ -444,16 +444,13 @@
   (yas-global-mode 1))
 
 ;;Org stuff
-(if (file-exists-p "~/emacs_config/org-kanban.el")
     (progn
-      (load "~/emacs_config/org-kanban.el")
-      (define-key org-mode-map (kbd "C-c k") 'org-kanban/shift)
       (fset 'gk/listify
 	    (lambda (&optional arg) "Keyboard macro."
 	      (interactive "p")
 	      (kmacro-exec-ring-item
 	       (quote ([33554435 33554435 1 42 42 32 79 80 84 73 79 78 83 32 7 5] 0 "%d")) arg)))
-      (define-key org-mode-map (kbd "C-c c") 'gk/listify)))
+      (define-key org-mode-map (kbd "C-c c") 'gk/listify))
 
 ;; Org work timer stuff
 (use-package org-pomodoro
@@ -561,7 +558,7 @@ This may send a notification, play a sound and start a pomodoro break."
  '(flycheck-lintr-linters "with_defaults(line_length_linter(120))")
  '(package-selected-packages
    (quote
-    (websocket request org-pomodoro smartrep smartparens undo-tree avy ws-butler github-browse-file ox-gfm hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
+    (use-package delight persp-projectile perspective Perspective websocket request org-pomodoro smartrep smartparens undo-tree avy ws-butler github-browse-file ox-gfm hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
  '(safe-local-variable-values (quote ((pyvenv-workon . staffing))))
  '(tramp-verbose 3 nil (tramp)))
 (custom-set-faces
