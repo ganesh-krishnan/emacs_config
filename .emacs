@@ -28,12 +28,19 @@
 (use-package try
   :ensure t)
 
+;; Delight
+(use-package delight
+  :ensure t
+  )
+
 ;; Trim whitespace
 (use-package ws-butler
   :ensure t
+  :delight
   :config
   (ws-butler-global-mode)
   )
+
 
 ;; Enable tramp
 (use-package tramp
@@ -42,6 +49,7 @@
 
 ;; Install which-key
 (use-package which-key
+  :delight
   :ensure t
   :config
   (which-key-mode)
@@ -79,6 +87,7 @@
   :config
   (projectile-global-mode)
   (setq projectile-file-exists-remote-cache-expire nil)
+  :delight '(:eval (concat " " (projectile-project-name)))
   )
 
 (use-package helm-ag
@@ -145,6 +154,7 @@
 ;; Autocomplete
 (use-package auto-complete
   :ensure t
+  :delight
   :config
   (ac-config-default)
   (add-to-list 'ac-modes 'sql-interactive-mode)
@@ -261,6 +271,7 @@
 
 ;; Helm stuff
 (use-package helm
+  :delight
   :ensure t
   :config
   (progn
