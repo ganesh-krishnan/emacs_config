@@ -467,8 +467,10 @@
 (use-package org-pomodoro
   :ensure t
   :init
-  (setq org-pomodoro-ticking-sound-p t)
-  (setq org-pomodoro-ticking-sound "/Users/ganeshkrishnan/.emacs.d/elpa/org-pomodoro-20171108.1314/resources/ocean_waves.wav")
+  (setq org-pomodoro-finished-sound-p t)
+  (setq org-pomodoro-finished-sound "/Users/ganeshkrishnan/.emacs.d/elpa/org-pomodoro-20171108.1314/resources/bell_multiple.wav")
+  ;; (setq org-pomodoro-ticking-sound-p t)
+  ;; (setq org-pomodoro-ticking-sound "/Users/ganeshkrishnan/.emacs.d/elpa/org-pomodoro-20171108.1314/resources/ocean_waves.wav")
   (setq org-pomodoro-keep-killed-pomodoro-time t)
   )
 
@@ -498,6 +500,7 @@ This may send a notification, play a sound and start a pomodoro break."
   (org-pomodoro-reset)
   (org-pomodoro-update-mode-line)
   (org-agenda-maybe-redo)
+  (org-pomodoro-maybe-play-sound :pomodoro)
   (run-hooks 'org-pomodoro-finished-hook))
 
 (define-key global-map "\C-ca" 'org-agenda)
