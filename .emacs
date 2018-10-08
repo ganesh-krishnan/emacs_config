@@ -437,9 +437,9 @@
   )
 
 ;; Perspective Projectile
-(use-package persp-projectile
-  :ensure t
-)
+;(use-package persp-projectile
+;  :ensure t
+;)
 
 ;; Eyebrowse
 (use-package eyebrowse
