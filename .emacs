@@ -187,6 +187,7 @@
   (add-to-list 'purpose-user-mode-purposes '(python-mode . py))
   (add-to-list 'purpose-user-mode-purposes '(inferior-python-mode . py-repl))
   (purpose-compile-user-configuration)
+  (define-key purpose-mode-map (kbd "C-x C-f") nil)
   )
 
 ;; Turn on winner mode
