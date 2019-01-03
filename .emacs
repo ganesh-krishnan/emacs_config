@@ -1,4 +1,4 @@
-; Inhibit startup message
+;; Inhibit startup message
 (setq inhibit-startup-message t)
 
 ;; Save clipboard in kill ring
