@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: rpg
+# key: rpg
+# group: Org
+# --
+:results raw drawer :ipyfile ${1}
