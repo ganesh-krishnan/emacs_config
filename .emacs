@@ -340,15 +340,9 @@
 (put 'scroll-left 'disabled nil)
 
 ;; ob-ipython
-;; (use-package ob-ipython
-;;   :ensure t
-;;   :config
-;;   (org-babel-do-load-languages
-;;  'org-babel-load-languages
-;;  '((ipython . t)
-;;    ;; other languages..
-;;    ))
-;;   )
+(use-package ob-ipython
+  :ensure t
+  )
 
 ;; Smartrep
 ;; Omit prefix keys - useful for ein
@@ -525,6 +519,7 @@ This may send a notification, play a sound and start a pomodoro break."
    (ein . t)
    (stan .t)
    (dot . t)
+   (ipython . t)
    ))
 
 (use-package ox-gfm
