@@ -4,6 +4,15 @@
 # group: Org
 # --
 ** OPTIONS Daily Review                                               :REVIEW:
+   :PROPERTIES:
+   :EFFORT:   0:20
+   :END:
 ** OPTIONS Metrics Review                                               :WORK:
+   :PROPERTIES:
+   :EFFORT:   0
+   :END:
 ** OPTIONS Power up on data                                            :STUDY:
+   :PROPERTIES:
+   :EFFORT:   0:20
+   :END:
 ** OPTIONS Interruptions                                               :OTHER:
