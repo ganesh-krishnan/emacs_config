@@ -483,6 +483,8 @@
 
 (define-key org-mode-map (kbd "C-c C-x t") 'gk/org-pomodoro-ask)
 (define-key org-mode-map (kbd "C-c C-x s") 'gk/org-pomodoro-toggle-sounds)
+(setq org-enforce-todo-dependencies t)
+(setq org-log-into-drawer t)
 
 ;; Modify org-pomodoro-finished to not start breaks
 (defun org-pomodoro-finished ()
