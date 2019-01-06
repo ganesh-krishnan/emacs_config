@@ -464,8 +464,6 @@
   :init
   (setq org-pomodoro-finished-sound-p t)
   (setq org-pomodoro-finished-sound "/Users/ganeshkrishnan/.emacs.d/elpa/org-pomodoro-20171108.1314/resources/bell_multiple.wav")
-  ;; (setq org-pomodoro-ticking-sound-p t)
-  ;; (setq org-pomodoro-ticking-sound "/Users/ganeshkrishnan/.emacs.d/elpa/org-pomodoro-20171108.1314/resources/ocean_waves.wav")
   (setq org-pomodoro-keep-killed-pomodoro-time t)
   )
 
