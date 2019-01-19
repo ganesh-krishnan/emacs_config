@@ -63,9 +63,9 @@
 ;; Setup SQL - this is because of a quirk with Postgres
 (setenv "DYLD_LIBRARY_PATH" "/usr/local/Cellar/postgresql/9.5.4_1/lib/")
 
-(if (file-exists-p "~/emacs_config/sql-indent.el")
-    (progn
-      (load "~/emacs_config/sql-indent.el")))
+(use-package sql-indent
+  :ensure t
+  )
 
 ;; Underscores in database names mess up the prompt
 (add-hook 'sql-interactive-mode-hook
@@ -572,7 +572,7 @@ This may send a notification, play a sound and start a pomodoro break."
  '(flycheck-lintr-linters "with_defaults(line_length_linter(120))")
  '(package-selected-packages
    (quote
-    (org-noter yasnippet window-purpose python use-package delight persp-projectile perspective Perspective websocket request org-pomodoro smartrep smartparens undo-tree avy ws-butler github-browse-file ox-gfm hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
+    (sql-indent org-noter yasnippet window-purpose python use-package delight persp-projectile perspective Perspective websocket request org-pomodoro smartrep smartparens undo-tree avy ws-butler github-browse-file ox-gfm hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
  '(safe-local-variable-values (quote ((pyvenv-workon . staffing))))
  '(tramp-verbose 3 nil (tramp)))
 (custom-set-faces
