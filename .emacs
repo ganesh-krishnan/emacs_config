@@ -19,6 +19,9 @@
 
 (package-initialize)
 
+;; Load custom lisp
+(add-to-list 'load-path "~/emacs_config/lisp/")
+
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -343,6 +346,11 @@
 (use-package ob-ipython
   :ensure t
   )
+
+;; scimax
+(load "scimax-ob")
+(load "scimax-org-babel-ipython-upstream")
+
 
 ;; Smartrep
 ;; Omit prefix keys - useful for ein
