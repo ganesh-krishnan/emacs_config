@@ -497,6 +497,21 @@
 (setq org-enforce-todo-dependencies t)
 (setq org-agenda-dim-blocked-tasks 'invisible)
 (setq org-log-into-drawer t)
+(setq org-agenda-custom-commands
+      '(("w" "Next Work Tasks" tags "{@work\\|@computer}+TODO=\"NEXT\"")
+	("D" . "Daily Review")
+	("Db" "Review Habits" tags "HABIT=\"current\"" ((org-agenda-files '("~/org/habits.org"))))
+	("Dr" "Daily Tasks" tags "REGULAR=\"t\"" ((org-agenda-files '("~/org/housekeep.org"))))
+	("Di" "Process Inbox" todo ".+" ((org-agenda-files '("~/org/inbox.org"))))
+	("Dp" "Review Power Lens of Focus" tags "HABIT=\"power\"" ((org-agenda-files '("~/org/habits.org"))))
+	("Dh" "@Home" tags "@home")
+	("Dw" "@Work" tags "@work")
+	("Dc" "@Computer" tags "@computer")
+	("De" "@Errands" tags "@errands")
+	("Da" "@Anywhere" tags "@anywhere")
+	("Do" "Other" tags-todo "DAILY_REVIEW=\"t\"" ((org-agenda-files '("~/org/housekeep.org"))))
+	))
+
 (setq org-capture-templates
       '(("t" "Task" entry (file "~/org/inbox.org") "* TODO %i%?")
 	("w" "Weekly Review" entry (file+datetree "~/org/reviews.org")
