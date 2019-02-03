@@ -631,3 +631,6 @@ This may send a notification, play a sound and start a pomodoro break."
 
 ;;;; Ediff
 (setq ediff-split-window-function (quote split-window-horizontally))
+
+;;; Interaction log
+(load "interaction-log")
