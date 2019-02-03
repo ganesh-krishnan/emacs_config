@@ -495,6 +495,7 @@
 (global-set-key (kbd "C-c C-x t") 'gk/org-pomodoro-ask)
 (define-key org-mode-map (kbd "C-c C-x s") 'gk/org-pomodoro-toggle-sounds)
 (setq org-enforce-todo-dependencies t)
+(setq org-agenda-dim-blocked-tasks 'invisible)
 (setq org-log-into-drawer t)
 
 ;; Modify org-pomodoro-finished to not start breaks
@@ -518,6 +519,7 @@ This may send a notification, play a sound and start a pomodoro break."
 				 "~/org/career.org"
 				 "~/org/habits.org"
 				 "~/org/inbox.org")))
+(setq org-tags-exclude-from-inheritance '("current" "future"))
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
 (setq org-src-preserve-indentation t)
