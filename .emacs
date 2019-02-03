@@ -467,8 +467,7 @@
 	    (lambda (&optional arg) "Keyboard macro."
 	      (interactive "p")
 	      (kmacro-exec-ring-item
-	       (quote ([33554435 33554435 1 42 42 32 79 80 84 73 79 78 83 32 7 5] 0 "%d")) arg)))
-      (define-key org-mode-map (kbd "C-c c") 'gk/listify))
+	       (quote ([33554435 33554435 1 42 42 32 79 80 84 73 79 78 83 32 7 5] 0 "%d")) arg))))
 
 ;; Org work timer stuff
 (use-package org-pomodoro
@@ -511,6 +510,7 @@ This may send a notification, play a sound and start a pomodoro break."
   (run-hooks 'org-pomodoro-finished-hook))
 
 (define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-cc" 'org-capture)
 (setq org-log-done t)
 (if (file-exists-p "~/org/work.org")
     (setq org-agenda-files (list "~/org/work.org")))
