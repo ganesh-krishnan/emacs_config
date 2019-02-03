@@ -550,10 +550,6 @@ This may send a notification, play a sound and start a pomodoro break."
   :ensure t
   )
 
-(use-package ob-async
-  :ensure t
-  )
-
 (use-package org-noter
   :ensure t
   )
