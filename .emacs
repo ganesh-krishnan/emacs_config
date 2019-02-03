@@ -497,6 +497,12 @@
 (setq org-enforce-todo-dependencies t)
 (setq org-agenda-dim-blocked-tasks 'invisible)
 (setq org-log-into-drawer t)
+(setq org-capture-templates
+      '(("t" "Task" entry (file "~/org/inbox.org") "* TODO %i%?")
+	("w" "Weekly Review" entry (file+datetree "~/org/reviews.org")
+	 (file "~/org/templates/weekly_review_template.org"))
+	("m" "Weekly Meeting" entry (file+datetree "~/org/reviews.org")
+	 (file "~/org/templates/weekly_meeting.org"))))
 
 ;; Modify org-pomodoro-finished to not start breaks
 (defun org-pomodoro-finished ()
