@@ -350,6 +350,7 @@
 ;; scimax
 (load "scimax-ob")
 (load "scimax-org-babel-ipython-upstream")
+(setq ob-ipython-exception-results nil)
 
 
 ;; Smartrep
