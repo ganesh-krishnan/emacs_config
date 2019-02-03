@@ -492,7 +492,7 @@
 	 (setq org-pomodoro-play-sounds t)))
   )
 
-(define-key org-mode-map (kbd "C-c C-x t") 'gk/org-pomodoro-ask)
+(global-set-key (kbd "C-c C-x t") 'gk/org-pomodoro-ask)
 (define-key org-mode-map (kbd "C-c C-x s") 'gk/org-pomodoro-toggle-sounds)
 (setq org-enforce-todo-dependencies t)
 (setq org-log-into-drawer t)
