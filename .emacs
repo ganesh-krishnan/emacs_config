@@ -513,7 +513,11 @@ This may send a notification, play a sound and start a pomodoro break."
 (define-key global-map "\C-cc" 'org-capture)
 (setq org-log-done t)
 (if (file-exists-p "~/org/work.org")
-    (setq org-agenda-files (list "~/org/work.org")))
+    (setq org-agenda-files (list "~/org/work.org"
+				 "~/org/housekeep.org"
+				 "~/org/career.org"
+				 "~/org/habits.org"
+				 "~/org/inbox.org")))
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
 (setq org-src-preserve-indentation t)
