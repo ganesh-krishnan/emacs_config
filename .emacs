@@ -352,6 +352,9 @@
 (load "scimax-org-babel-ipython-upstream")
 (setq ob-ipython-exception-results nil)
 
+(use-package csv
+  :ensure t
+  )
 
 ;; Smartrep
 ;; Omit prefix keys - useful for ein
