@@ -814,7 +814,7 @@ This may send a notification, play a sound and start a pomodoro break."
  '(flycheck-lintr-linters "with_defaults(line_length_linter(120))")
  '(package-selected-packages
    (quote
-    (org-timeline org-mac-iCal csv sql-indent org-noter yasnippet window-purpose python use-package delight persp-projectile perspective Perspective websocket request org-pomodoro smartrep smartparens undo-tree avy ws-butler github-browse-file ox-gfm hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
+    (csv sql-indent org-noter yasnippet window-purpose python use-package delight persp-projectile perspective Perspective websocket request org-pomodoro smartrep smartparens undo-tree avy ws-butler github-browse-file ox-gfm hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
  '(safe-local-variable-values (quote ((pyvenv-workon . staffing))))
  '(tramp-verbose 3 nil (tramp)))
 (custom-set-faces
