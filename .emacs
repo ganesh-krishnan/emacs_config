@@ -458,6 +458,14 @@
   (setq org-pomodoro-keep-killed-pomodoro-time t)
   )
 
+(use-package org-clock-convenience
+  :ensure t
+    :bind (:map org-agenda-mode-map
+   	   ("<S-up>" . org-clock-convenience-timestamp-up)
+   	   ("<S-down>" . org-clock-convenience-timestamp-down)
+   	   ("C-c C-f" . org-clock-convenience-fill-gap)
+   	   ("C-c C-b" . org-clock-convenience-fill-gap-both)))
+
 (defun gk/org-pomodoro-ask (n)
   (interactive "nHow many minutes? ")
   (setq org-pomodoro-length n)
