@@ -55,7 +55,7 @@
         (narrow-to-region (point) (point-max))
         (org-map-entries
          '(when (member (org-get-todo-state) org-done-keywords)
-            (org-todo (car org-todo-keywords))))
+            (org-todo "SUBTASK")))
         ))))
 
 (defun org-reset-subtask-state-maybe ()

@@ -495,31 +495,245 @@ currently open, based on `org-agenda-files'."
 	 (setq org-pomodoro-play-sounds t)))
   )
 
+(defun gk/cmp-org-heading-levels (a b)
+  (let* ((a-pos (get-text-property 0 'org-marker a))
+	 (b-pos (get-text-property 0 'org-marker b))
+	 (level-a
+	  (org-with-point-at a-pos
+	    (nth 1 (org-heading-components))))
+	 (level-b
+	  (org-with-point-at b-pos
+	    (nth 1 (org-heading-components))))
+	 )
+    (cond ((if level-a (and level-b (< level-a level-b)) level-b) -1)
+	  ((if level-b (and level-a (< level-b level-a)) level-a) +1))))
+
+
+(defun gk/habits ()
+  '(tags "HABIT=\"current\""
+	 ((org-agenda-overriding-header "Habits to Reinforce")
+	  (org-agenda-files '("~/org/habits.org")))))
+
+(defun gk/agendblock-inbox ()
+  '(tags-todo "/-DONE|-CANCELED"
+	 ((org-agenda-overriding-header "Inbox")
+	  (org-agenda-files '("~/org/inbox.org" "~/org/beorg/inbox.org"))
+	 )))
+
+(defun gk/waiting-fors ()
+  '(tags-todo "/+WAITING"
+	 ((org-agenda-overriding-header "Waiting Fors")
+	  (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-waiting-task)))
+	  )))
+
+(defun gk/habitual-tasks ()
+  '(tags "DAILY_REVIEW_TASKS=\"t\""
+	 ((org-agenda-overriding-header "Habitual Tasks")
+	  (org-agenda-files '("~/org/housekeep.org")))))
+
+(defun gk/available-and-visible-tasks ()
+  '(tags-todo "/+TODO|+NEXT"
+	      ((org-agenda-overriding-header "Current Items")
+	       (org-agenda-files gk/project-agenda-files)
+	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-available-and-visible-task)))
+	       (org-agenda-prefix-format '((tags . "%(concat \"[\"(org-format-outline-path (list (car (org-get-outline-path)))) \"] \")"))))))
+
+(defun gk/no-context ()
+  '(tags-todo "-{@home\\|@work\\|@computer\\|@errands\\|@anywhere}"
+	      ((org-agenda-overriding-header "Tasks with No Context")
+	       (org-agenda-files gk/project-agenda-files)
+	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-available-task))))))
+
+(defun gk/power-lens ()
+  '(tags "HABIT=\"power\""
+	 ((org-agenda-overriding-header "Power Lens of Focus")
+	  (org-agenda-files '("~/org/habits.org")))))
+
+(defun gk/other-daily-tasks ()
+  '(tags-todo "DAILY_REVIEW=\"t\""
+	      ((org-agenda-overriding-header "Other Tasks")
+	       (org-agenda-files '("~/org/housekeep.org"))
+	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-scheduled-before-today)))
+	       (org-agenda-cmp-user-defined 'gk/cmp-org-heading-levels)
+	       (org-agenda-sorting-strategy '(user-defined-down)))))
+
+(defun gk/weekly-review ()
+  '(search "Do Weekly Review" ((org-agenda-files '("~/org/housekeep.org"))
+			       (org-agenda-overriding-header "Weekly Review")
+			       (org-agenda-skip-function
+				(org-query-select "headline" (org-query-gtd-available-task))))))
+
+(defun gk/agendablock-active-projects-with-next ()
+  '(tags-todo "/+PROJ"
+              ((org-agenda-overriding-header "Active projects with a next task")
+               (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-project-armed)))
+               (org-tags-match-list-sublevels 't)
+	       )))
+
+(defun gk/weekly-tasks-grp1 ()
+  '(tags-todo "WEEKLY_REVIEW_GRP1=\"t\""
+	      ((org-agenda-overriding-header "Default Review")
+	       (org-agenda-files '("~/org/housekeep.org"))
+	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-scheduled-before-today))))))
+
+(defun gk/weekly-tasks-grp2 ()
+  '(tags-todo "WEEKLY_REVIEW_GRP2=\"t\""
+	      ((org-agenda-overriding-header "Other Tasks")
+	       (org-agenda-files '("~/org/housekeep.org"))
+	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-scheduled-before-today))))))
+
+(defun gk/stuck-projects ()
+  '(tags-todo "/+PROJ"
+	      ((org-agenda-overriding-header "Current Stuck Projects")
+	       (org-agenda-files gk/project-agenda-files)
+	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-project-stuck))))))
+
+(defun gk/active-current-visible-projects ()
+  '(tags-todo "/+PROJ"
+	      ((org-agenda-overriding-header "Active Current Projects")
+	       (org-agenda-files gk/project-agenda-files)
+	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-active-current-visible-project))))))
+
+(defun gk/active-deferred-projects ()
+  '(tags-todo "/+PROJ"
+	      ((org-agenda-overriding-header "Active Deferred Projects")
+	       (org-agenda-files gk/project-agenda-files)
+	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-active-deferred-project))))))
+
+(defun gk/someday-projects ()
+  '(tags-todo "/+PROJ"
+	      ((org-agenda-overriding-header "Someday/Maybe Projects")
+	       (org-agenda-files gk/project-agenda-files)
+	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-someday-project))))))
+
+(defun gk/suspended-projects ()
+  '(tags-todo "/+PROJ"
+	      ((org-agenda-overriding-header "Suspended Projects")
+	       (org-agenda-files gk/project-agenda-files)
+	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-suspended-project))))))
+
+(defun gk/tasks-to-archive ()
+  '(todo "DONE|CANCELED"
+	 ((org-agenda-overriding-header "Tasks to Archive"))))
+
+
+(defun gk/work-tasks-for-today ()
+  '(tags-todo "{@work\\|@computer}/+TODO|+NEXT"
+	      ((org-agenda-overriding-header "Work Tasks for Today")
+	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-available-task))))))
+
+(defun gk/home-tasks-for-today ()
+  '(tags-todo "{@home\\|@computer}/+TODO|+NEXT"
+	      ((org-agenda-overriding-header "Home Tasks for Today")
+	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-available-task))))))
+
+(defun gk/review-clock-report ()
+  '(tags-todo "PLACEHOLDER"
+	      ((org-agenda-overriding-header "Review clock report for week - Not yet ready"))))
+
+(defun gk/review-frequently-rescheduled ()
+  '(tags-todo "PLACEHOLDER"
+	      ((org-agenda-overriding-header "Review highly rescheduled tasks - Not yet ready"))))
+
+(defun gk/org-entry-properties-inherit-deadline (orig-fun &optional pom which)
+  "Call ORIG-FUN with POM, but if WHICH is `SCHEDULED' or `DEADLINE' do it recursively."
+
+  (if (or (string= which "DEADLINE") (string= which "SCHEDULED"))
+      (org-with-point-at pom
+	(let (value)
+	  (while (not (or (setq value (funcall orig-fun (point) which))
+			  (not (org-up-heading-safe)))))
+	  value))
+    (funcall orig-fun pom which)))
+(advice-add 'org-entry-properties :around #'gk/org-entry-properties-inherit-deadline)
+
+(if (file-exists-p "~/org/work.org")
+    (setq org-agenda-files (list "~/org/work.org"
+				 "~/org/housekeep.org"
+				 "~/org/spiritual.org"
+				 "~/org/career.org"
+				 "~/org/habits.org"
+				 "~/org/other.org"
+				 "~/org/inbox.org"
+				 "~/org/calendar.org"
+				 "~/org/beorg/inbox.org")))
+
+(setq gk/project-agenda-files (list "~/org/work.org"
+				    "~/org/housekeep.org"
+				    "~/org/spiritual.org"
+				    "~/org/career.org"
+				    "~/org/habits.org"
+				    "~/org/other.org"))
+
+; (setq org-agenda-todo-ignore-with-date t)
 (global-set-key (kbd "C-c C-x t") 'gk/org-pomodoro-ask)
+(global-set-key (kbd "C-c C-w") 'org-refile)
 (define-key org-mode-map (kbd "C-c C-x s") 'gk/org-pomodoro-toggle-sounds)
+(load "org-query")
+(load "org-query-gtd")
+(load "org-subtask-reset")
+(define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-cc" 'org-capture)
+(setq org-archive-location "diary.org::datetree/* Archived Tasks")
+(setq org-log-done t)
+(setq org-log-reschedule nil)
+(setq org-clock-out-remove-zero-time-clocks t)
+(setq org-columns-default-format "%40ITEM(Task) %10TODO %17EFFORT(Estimated Effort){:} %CLOCKSUM")
+(setq org-refile-targets '((nil :maxlevel . 9)
+			   ("~/org/reference.org" :maxlevel . 9)
+			   (org-agenda-files :maxlevel . 9)))
+(setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
+(setq org-refile-use-outline-path 'file)              ; Show full paths for refiling
 (setq org-enforce-todo-dependencies t)
-(setq org-agenda-dim-blocked-tasks 'invisible)
+(setq org-agenda-dim-blocked-tasks nil)
 (setq org-log-into-drawer t)
+(setq org-stuck-projects '("/+PROJ-DONE-CANCELED" ("NEXT") nil ""))
 (setq org-agenda-custom-commands
-      '(("w" "Next Work Tasks" tags "{@work\\|@computer}+TODO=\"NEXT\"")
-	("D" . "Daily Review")
-	("Db" "Review Habits" tags "HABIT=\"current\"" ((org-agenda-files '("~/org/habits.org"))))
-	("Dr" "Daily Tasks" tags "REGULAR=\"t\"" ((org-agenda-files '("~/org/housekeep.org"))))
-	("Di" "Process Inbox" todo ".+" ((org-agenda-files '("~/org/inbox.org"))))
-	("Dp" "Review Power Lens of Focus" tags "HABIT=\"power\"" ((org-agenda-files '("~/org/habits.org"))))
-	("Dh" "@Home" tags "@home")
-	("Dw" "@Work" tags "@work")
-	("Dc" "@Computer" tags "@computer")
-	("De" "@Errands" tags "@errands")
-	("Da" "@Anywhere" tags "@anywhere")
-	("Do" "Other" tags-todo "DAILY_REVIEW=\"t\"" ((org-agenda-files '("~/org/housekeep.org"))))
+      `(("N" "Daily Review"
+	 ((search "Do Daily Review" ((org-agenda-files '("~/org/housekeep.org"))
+				     (org-agenda-overriding-header "Daily Review")
+				     (org-agenda-skip-function
+				      (org-query-select "headline" (org-query-gtd-available-task)))))
+	  ,(gk/habits)
+	  ,(gk/habitual-tasks)
+	  ,(gk/waiting-fors)
+	  ,(gk/agendblock-inbox)
+	  ,(gk/no-context)
+	  ,(gk/power-lens)
+	  ,(gk/available-and-visible-tasks)
+	  ,(gk/other-daily-tasks))
+	 nil)
+	("W" "Weekly Review"
+	 (,(gk/weekly-review)
+	  ,(gk/habits)
+	  ,(gk/agendblock-inbox)
+	  ,(gk/no-context)
+	  ,(gk/weekly-tasks-grp1)
+	  ,(gk/stuck-projects)
+	  ,(gk/active-deferred-projects)
+	  ,(gk/active-current-visible-projects)
+	  ,(gk/someday-projects)
+	  ,(gk/suspended-projects)
+	  ,(gk/available-and-visible-tasks)
+	  ,(gk/power-lens)
+	  ,(gk/weekly-tasks-grp2)
+	  ,(gk/review-clock-report)
+	  ,(gk/review-frequently-rescheduled)
+	  ,(gk/weekly-review)
+	  ,(gk/tasks-to-archive))
+	 nil)
+	("w" "Work Tasks" (,(gk/work-tasks-for-today))
+	 nil)
+	("h" "Home Tasks" (,(gk/home-tasks-for-today))
+	 nil)
 	))
 
 (setq org-capture-templates
       '(("t" "Task" entry (file "~/org/inbox.org") "* TODO %i%?")
-	("w" "Weekly Review" entry (file+datetree "~/org/reviews.org")
-	 (file "~/org/templates/weekly_review_template.org"))
-	("m" "Weekly Meeting" entry (file+datetree "~/org/reviews.org")
+	("i" "Interruption" entry (file+datetree "~/org/diary.org") "* %?" :clock-in t :clock-resume t)
+	("r" "Reference" entry (file "~/org/reference.org") "* %i%?")
+	("m" "Meeting" entry (file+headline "~/org/calendar.org" "Meetings") "* TODO %i%?")
+	("w" "Weekly Meeting" entry (file+datetree "~/org/reviews.org")
 	 (file "~/org/templates/weekly_meeting.org"))))
 
 ;; Modify org-pomodoro-finished to not start breaks
@@ -534,16 +748,6 @@ This may send a notification, play a sound and start a pomodoro break."
   (org-pomodoro-maybe-play-sound :pomodoro)
   (run-hooks 'org-pomodoro-finished-hook))
 
-(define-key global-map "\C-ca" 'org-agenda)
-(define-key global-map "\C-cc" 'org-capture)
-(setq org-log-done t)
-(if (file-exists-p "~/org/work.org")
-    (setq org-agenda-files (list "~/org/work.org"
-				 "~/org/housekeep.org"
-				 "~/org/career.org"
-				 "~/org/habits.org"
-				 "~/org/inbox.org")))
-(setq org-tags-exclude-from-inheritance '("current" "future"))
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
 (setq org-src-preserve-indentation t)
@@ -610,7 +814,7 @@ This may send a notification, play a sound and start a pomodoro break."
  '(flycheck-lintr-linters "with_defaults(line_length_linter(120))")
  '(package-selected-packages
    (quote
-    (csv sql-indent org-noter yasnippet window-purpose python use-package delight persp-projectile perspective Perspective websocket request org-pomodoro smartrep smartparens undo-tree avy ws-butler github-browse-file ox-gfm hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
+    (org-timeline org-mac-iCal csv sql-indent org-noter yasnippet window-purpose python use-package delight persp-projectile perspective Perspective websocket request org-pomodoro smartrep smartparens undo-tree avy ws-butler github-browse-file ox-gfm hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
  '(safe-local-variable-values (quote ((pyvenv-workon . staffing))))
  '(tramp-verbose 3 nil (tramp)))
 (custom-set-faces
