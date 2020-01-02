@@ -466,11 +466,30 @@
    	   ("C-c C-f" . org-clock-convenience-fill-gap)
    	   ("C-c C-b" . org-clock-convenience-fill-gap-both)))
 
+(defun gk/create-logbook-entry ()
+  (interactive)
+  (catch 'active-pomodoro
+    (when (org-pomodoro-active-p)
+      (message "Pomodoro is active. Please end pomodoro before adjusting clocking")
+      (throw 'active-pomodoro "Pomodoro is active"))
+    (let ((org-clock-out-remove-zero-time-clocks nil))
+      (if (derived-mode-p 'org-agenda-mode)
+	  (progn (org-agenda-clock-in)
+		 (org-agenda-clock-out))
+	(org-clock-in)
+	(org-clock-out)))))
+
 (defun gk/org-pomodoro-ask (n)
   (interactive "nHow many minutes? ")
   (setq org-pomodoro-length n)
   (org-pomodoro)
   )
+
+(defun gk/org-pomodoro-kill ()
+  (interactive)
+  (when (org-pomodoro-active-p)
+    (org-pomodoro-kill)
+    (message "Pomodoro ended")))
 
 
 (defun gk/save-all-agenda-buffers ()
@@ -478,13 +497,13 @@
 currently open, based on `org-agenda-files'."
   (interactive)
   (save-current-buffer
-    (dolist (buffer (buffer-list t))
+    (dolist (buffer (buffer-list))
       (set-buffer buffer)
       (when (member (buffer-file-name)
-                    (mapcar 'expand-file-name (org-agenda-files t)))
+                    (mapcar 'expand-file-name (org-agenda-files)))
         (save-buffer)))))
 
-(advice-add 'org-refile :after 'gk/save-all-agenda-buffers)
+; (advice-add 'org-refile :after 'gk/save-all-agenda-buffers)
 (advice-add 'org-agenda-quit :before 'gk/save-all-agenda-buffers)
 
 (defun gk/org-pomodoro-toggle-sounds ()
@@ -586,7 +605,7 @@ currently open, based on `org-agenda-files'."
   '(tags-todo "/+PROJ"
 	      ((org-agenda-overriding-header "Current Stuck Projects")
 	       (org-agenda-files gk/project-agenda-files)
-	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-project-stuck))))))
+	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-stuck-project))))))
 
 (defun gk/active-current-visible-projects ()
   '(tags-todo "/+PROJ"
@@ -620,12 +639,24 @@ currently open, based on `org-agenda-files'."
 (defun gk/work-tasks-for-today ()
   '(tags-todo "{@work\\|@computer}/+TODO|+NEXT"
 	      ((org-agenda-overriding-header "Work Tasks for Today")
+	       (org-agenda-files gk/project-agenda-files)
 	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-available-task))))))
+
+(defun gk/meetings-for-today ()
+  '(todo "TODO"
+	 ((org-agenda-overriding-header "Meetings for Today")
+	  (org-agenda-files (list "~/org/calendar.org")))))
 
 (defun gk/home-tasks-for-today ()
   '(tags-todo "{@home\\|@computer}/+TODO|+NEXT"
 	      ((org-agenda-overriding-header "Home Tasks for Today")
 	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-available-task))))))
+
+(defun gk/tasks-for-today ()
+    '(todo "TODO|NEXT"
+	   ((org-agenda-overriding-header "Tasks for Today")
+	    (org-agenda-files gk/project-agenda-files)
+	    (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-available-task))))))
 
 (defun gk/review-clock-report ()
   '(tags-todo "PLACEHOLDER"
@@ -668,7 +699,10 @@ currently open, based on `org-agenda-files'."
 ; (setq org-agenda-todo-ignore-with-date t)
 (global-set-key (kbd "C-c C-x t") 'gk/org-pomodoro-ask)
 (global-set-key (kbd "C-c C-w") 'org-refile)
-(define-key org-mode-map (kbd "C-c C-x s") 'gk/org-pomodoro-toggle-sounds)
+(global-set-key (kbd "C-c C-x k") 'gk/org-pomodoro-kill)
+(global-set-key (kbd "C-c C-x s") 'gk/org-pomodoro-toggle-sounds)
+(define-key org-mode-map (kbd "C-c C-X l") 'gk/create-logbook-entry)
+(define-key org-agenda-mode-map (kbd "C-c C-x l") 'gk/create-logbook-entry)
 (load "org-query")
 (load "org-query-gtd")
 (load "org-subtask-reset")
@@ -722,9 +756,13 @@ currently open, based on `org-agenda-files'."
 	  ,(gk/weekly-review)
 	  ,(gk/tasks-to-archive))
 	 nil)
-	("w" "Work Tasks" (,(gk/work-tasks-for-today))
+	("w" "Work Tasks"
+	 (,(gk/work-tasks-for-today)
+	  ,(gk/meetings-for-today))
 	 nil)
 	("h" "Home Tasks" (,(gk/home-tasks-for-today))
+	 nil)
+	("C" "Current Tasks" (,(gk/tasks-for-today))
 	 nil)
 	))
 
@@ -766,6 +804,7 @@ This may send a notification, play a sound and start a pomodoro break."
    (stan .t)
    (dot . t)
    (ipython . t)
+   (latex . t)
    ))
 
 (use-package ox-gfm
