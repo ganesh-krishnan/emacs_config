@@ -76,6 +76,13 @@ should be continued."
    (org-query-todo '("PROJ"))))
 
 
+(defun org-query-gtd-empty-project ()
+  "Is the headline at point a project with no tasks"
+  (and
+   (org-query-todo '("PROJ"))
+   (not (org-query-child (org-query-todo)))))
+
+
 (defun org-query-gtd-someday-project ()
   "Is the headline at point a waiting project"
   (and
@@ -101,6 +108,16 @@ should be continued."
   (and
    (org-query-gtd-active-project)
    (org-query-child (org-query-gtd-available-task))))
+
+
+(defun org-query-gtd-stuck-project ()
+  "Active project with no NEXT state child"
+  (or
+   (and (org-query-gtd-active-project)
+	(or (org-query-gtd-scheduled-before-today)
+	    (org-query-gtd-unscheduled))
+	(not (org-query-child (org-query-todo '("NEXT" "WAITING")))))
+   (org-query-gtd-empty-project)))
 
 
 (defun org-query-gtd-active-current-visible-project ()
@@ -178,14 +195,6 @@ should be continued."
   (and
    (org-query-gtd-available-task)
    (not (org-query-gtd-hidden))))
-
-
-(defun org-query-gtd-project-stuck ()
-  "Active project with no NEXT state child"
-  (and (org-query-gtd-active-project)
-       (or (org-query-gtd-scheduled-before-today)
-	   (org-query-gtd-unscheduled))
-       (not (org-query-child (org-query-todo '("NEXT" "WAITING"))))))
 
 
 (defun org-query-gtd-refile ()
