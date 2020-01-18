@@ -547,10 +547,10 @@ currently open, based on `org-agenda-files'."
 	 ((org-agenda-overriding-header "Habits to Reinforce")
 	  (org-agenda-files '("~/org/habits.org")))))
 
-(defun gk/agendblock-inbox ()
+(defun gk/agendablock-inbox ()
   '(tags-todo "/-DONE|-CANCELED"
 	 ((org-agenda-overriding-header "Inbox")
-	  (org-agenda-files '("~/org/inbox.org" "~/org/beorg/inbox.org"))
+	  (org-agenda-files '("~/org/inbox.org"))
 	 )))
 
 (defun gk/waiting-fors ()
@@ -589,6 +589,20 @@ currently open, based on `org-agenda-files'."
 	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-scheduled-before-today)))
 	       (org-agenda-cmp-user-defined 'gk/cmp-org-heading-levels)
 	       (org-agenda-sorting-strategy '(user-defined-down)))))
+
+(defun gk1/other-daily-tasks1 ()
+  `(org-ql-block '(and (todo "SUBTASK")
+		       (property "DAILY_REVIEW" "t")
+		       `,(org-query-gtd-scheduled-before-today))
+		 ((org-ql-block-header "Other Tasks")
+		  (org-agenda-files '("~/org/housekeep.org")))))
+
+(defun gk1/other-daily-tasks2 ()
+  `(org-ql-block '(and (todo "NEXT")
+		       (property "DAILY_REVIEW" "t")
+		       `,(org-query-gtd-scheduled-before-today))
+		 ((org-ql-block-header "Other Tasks")
+		  (org-agenda-files '("~/org/housekeep.org")))))
 
 (defun gk/weekly-review ()
   '(search "Do Weekly Review" ((org-agenda-files '("~/org/housekeep.org"))
@@ -700,8 +714,7 @@ currently open, based on `org-agenda-files'."
 				 "~/org/habits.org"
 				 "~/org/other.org"
 				 "~/org/inbox.org"
-				 "~/org/calendar.org"
-				 "~/org/beorg/inbox.org")))
+				 "~/org/calendar.org")))
 
 (setq gk/project-agenda-files (list "~/org/work.org"
 				    "~/org/housekeep.org"
@@ -728,7 +741,7 @@ currently open, based on `org-agenda-files'."
 (setq org-clock-out-remove-zero-time-clocks t)
 (setq org-columns-default-format "%40ITEM(Task) %10TODO %17EFFORT(Estimated Effort){:} %CLOCKSUM")
 (setq org-refile-targets '((nil :maxlevel . 9)
-			   ("~/org/reference.org" :maxlevel . 9)
+			   ("~/org/supplementary/reference.org" :maxlevel . 9)
 			   (org-agenda-files :maxlevel . 9)))
 (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
 (setq org-refile-use-outline-path 'file)              ; Show full paths for refiling
@@ -736,25 +749,27 @@ currently open, based on `org-agenda-files'."
 (setq org-agenda-dim-blocked-tasks nil)
 (setq org-log-into-drawer t)
 (setq org-stuck-projects '("/+PROJ-DONE-CANCELED" ("NEXT") nil ""))
+
 (setq org-agenda-custom-commands
       `(("N" "Daily Review"
 	 ((search "Do Daily Review" ((org-agenda-files '("~/org/housekeep.org"))
 				     (org-agenda-overriding-header "Daily Review")
 				     (org-agenda-skip-function
 				      (org-query-select "headline" (org-query-gtd-available-task)))))
-	  ,(gk/habits)
-	  ,(gk/habitual-tasks)
+	  ,(gk1/habits)
+	  ,(gk1/habitual-tasks)
 	  ,(gk/waiting-fors)
-	  ,(gk/agendblock-inbox)
+	  ,(gk/agendablock-inbox)
 	  ,(gk/no-context)
 	  ,(gk/power-lens)
 	  ,(gk/available-and-visible-tasks)
-	  ,(gk/other-daily-tasks))
+	  ,(gk1/other-daily-tasks1)
+	  ,(gk1/other-daily-tasks2))
 	 nil)
 	("W" "Weekly Review"
 	 (,(gk/weekly-review)
 	  ,(gk/habits)
-	  ,(gk/agendblock-inbox)
+	  ,(gk/agendablock-inbox)
 	  ,(gk/no-context)
 	  ,(gk/weekly-tasks-grp1)
 	  ,(gk/stuck-projects)
@@ -782,10 +797,10 @@ currently open, based on `org-agenda-files'."
 
 (setq org-capture-templates
       '(("t" "Task" entry (file "~/org/inbox.org") "* TODO %i%?")
-	("i" "Interruption" entry (file+datetree "~/org/diary.org") "* %?" :clock-in t :clock-resume t)
-	("r" "Reference" entry (file "~/org/reference.org") "* %i%?")
+	("i" "Interruption" entry (file+datetree "~/org/supplementary/diary.org") "* %?" :clock-in t :clock-resume t)
+	("r" "Reference" entry (file "~/org/supplementary/reference.org") "* %i%?")
 	("m" "Meeting" entry (file+headline "~/org/calendar.org" "Meetings") "* TODO %i%?")
-	("w" "Weekly Meeting" entry (file+datetree "~/org/reviews.org")
+	("w" "Weekly Meeting" entry (file+datetree "~/org/supplementary/reviews.org")
 	 (file "~/org/templates/weekly_meeting.org"))))
 
 ;; Modify org-pomodoro-finished to not start breaks
