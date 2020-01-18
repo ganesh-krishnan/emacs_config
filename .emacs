@@ -756,7 +756,8 @@ currently open, based on `org-agenda-files'."
 (global-set-key (kbd "C-c C-w") 'org-refile)
 (global-set-key (kbd "C-c C-x k") 'gk/org-pomodoro-kill)
 (global-set-key (kbd "C-c C-x s") 'gk/org-pomodoro-toggle-sounds)
-(define-key org-mode-map (kbd "C-c C-X l") 'gk/create-logbook-entry)
+(define-key org-mode-map (kbd "C-c l") 'org-store-link)
+(define-key org-mode-map (kbd "C-c C-x l") 'gk/create-logbook-entry)
 (define-key org-agenda-mode-map (kbd "C-c C-x l") 'gk/create-logbook-entry)
 (load "org-query")
 (load "org-query-gtd")
@@ -910,7 +911,7 @@ This may send a notification, play a sound and start a pomodoro break."
  '(flycheck-lintr-linters "with_defaults(line_length_linter(120))")
  '(package-selected-packages
    (quote
-    (csv sql-indent org-noter yasnippet window-purpose python use-package delight persp-projectile perspective Perspective websocket request org-pomodoro smartrep smartparens undo-tree avy ws-butler github-browse-file ox-gfm hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
+    (git-auto-commit-mode dash recently org-snooze org-ql csv sql-indent org-noter yasnippet window-purpose python use-package delight persp-projectile perspective Perspective websocket request org-pomodoro smartrep smartparens undo-tree avy ws-butler github-browse-file ox-gfm hydra hyrda hungry-delete realgud elpy ess ess-site dumb-jump helm-ag ein ob-ipython which-key swiper-helm jedi swiper flycheck zenburn-theme tabbar try auto-complete ace-window magit multiple-cursors exec-path-from-shell helm-projectile helm projectile)))
  '(safe-local-variable-values (quote ((pyvenv-workon . staffing))))
  '(tramp-verbose 3 nil (tramp)))
 (custom-set-faces
