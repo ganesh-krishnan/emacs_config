@@ -740,7 +740,18 @@ currently open, based on `org-agenda-files'."
 				    "~/org/habits.org"
 				    "~/org/other.org"))
 
-; (setq org-agenda-todo-ignore-with-date t)
+(defun gk/save-all-agenda-buffers ()
+  (dolist (buf (buffer-list))
+    (with-current-buffer buf
+      (when (member (buffer-file-name)
+                    (mapcar 'expand-file-name (org-agenda-files t)))
+        (if (and (buffer-modified-p) (buffer-file-name))
+            (save-buffer))))))
+
+;; save all the agenda files after each capture
+(run-with-idle-timer 1 30 'gk/save-all-agenda-buffers)
+
+;; (setq org-agenda-todo-ignore-with-date t)
 (global-set-key (kbd "C-c C-x t") 'gk/org-pomodoro-ask)
 (global-set-key (kbd "C-c C-w") 'org-refile)
 (global-set-key (kbd "C-c C-x k") 'gk/org-pomodoro-kill)
