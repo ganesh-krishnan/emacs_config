@@ -347,6 +347,23 @@
   :ensure t
   )
 
+(defun ob-ipython--collect-json ()
+  ;; hacks here
+  (when (re-search-forward "{" nil t)
+    (backward-char))
+  ;; hacks end
+  (let ((json-array-type 'list))
+    (let (acc)
+      (while (not (= (point) (point-max)))
+        (setq acc (cons (json-read) acc))
+        (forward-line))
+      (nreverse acc))))
+
+(advice-add 'ob-ipython--collect-json :before
+            (lambda (&rest args)
+              (when (re-search-forward "{" nil t)
+                (backward-char))))
+
 ;; scimax
 (load "scimax-ob")
 (load "scimax-org-babel-ipython-upstream")
