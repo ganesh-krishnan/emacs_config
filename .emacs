@@ -466,6 +466,13 @@
    	   ("C-c C-f" . org-clock-convenience-fill-gap)
    	   ("C-c C-b" . org-clock-convenience-fill-gap-both)))
 
+(use-package org-ql
+  :ensure t
+  :defer f
+  )
+(require 'org-ql-search)
+(load "org-ql-gtd")
+
 (defun gk/create-logbook-entry ()
   (interactive)
   (catch 'active-pomodoro
