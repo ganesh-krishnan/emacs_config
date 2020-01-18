@@ -33,13 +33,15 @@
 ;; General
 (defun org-query-gtd-someday ()
   "Is the headline at point a someday/maybe"
-  (let ((someday (org-entry-get nil "SOMEDAY" t)))
-    (and someday)))
+  (let ((someday1 (org-entry-get nil "SOMEDAY" t))
+	(someday2 (member "@someday" (org-get-tags nil nil))))
+    (or someday1 someday2)))
 
 
 (defun org-query-gtd-suspended ()
-  (let ((suspended (org-entry-get nil "SUSPENDED" t)))
-    (and suspended))
+  (let ((suspended1 (org-entry-get nil "SUSPENDED" t))
+	(suspended2 (member "@suspended" (org-get-tags nil nil))))
+    (or suspended1 suspended2))
   )
 
 
