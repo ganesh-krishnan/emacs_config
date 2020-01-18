@@ -441,6 +441,13 @@
   :init
   (yas-global-mode 1))
 
+;; Git Auto-Commit
+(use-package git-auto-commit-mode
+  :ensure t
+  :config
+  (setq gac-debounce-interval 300))
+
+
 ;;Org stuff
     (progn
       (fset 'gk/listify
