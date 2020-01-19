@@ -421,6 +421,7 @@
   (setq elpy-rpc-backend "jedi")
   (setq python-shell-interpreter "ipython")
   (setq python-shell-interpreter-args "--simple-prompt --matplotlib tk")
+  (setq elpy-eldoc-show-current-function nil)
   (add-hook 'inferior-python-mode-hook 'company-mode)
 
   (defun start-lore ()
