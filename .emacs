@@ -496,6 +496,7 @@
   )
 (require 'org-ql-search)
 (load "org-ql-gtd")
+(load "org-ql-agenda")
 
 (defun gk/create-logbook-entry ()
   (interactive)
