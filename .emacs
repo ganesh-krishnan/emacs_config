@@ -41,7 +41,7 @@
   :ensure t
   :delight
   :config
-  (ws-butler-global-mode)
+  (add-hook 'prog-mode-hook #'ws-butler-mode)
   )
 
 
