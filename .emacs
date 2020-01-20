@@ -525,20 +525,6 @@
     (message "Pomodoro ended")))
 
 
-(defun gk/save-all-agenda-buffers ()
-  "Function used to save all agenda buffers that are
-currently open, based on `org-agenda-files'."
-  (interactive)
-  (save-current-buffer
-    (dolist (buffer (buffer-list))
-      (set-buffer buffer)
-      (when (member (buffer-file-name)
-                    (mapcar 'expand-file-name (org-agenda-files)))
-        (save-buffer)))))
-
-; (advice-add 'org-refile :after 'gk/save-all-agenda-buffers)
-(advice-add 'org-agenda-quit :before 'gk/save-all-agenda-buffers)
-
 (defun gk/org-pomodoro-toggle-sounds ()
   (interactive)
   (cond ((eq org-pomodoro-play-sounds t)
@@ -742,6 +728,7 @@ currently open, based on `org-agenda-files'."
 				    "~/org/habits.org"
 				    "~/org/other.org"))
 
+
 (defun gk/save-all-agenda-buffers ()
   (dolist (buf (buffer-list))
     (with-current-buffer buf
@@ -749,6 +736,9 @@ currently open, based on `org-agenda-files'."
                     (mapcar 'expand-file-name (org-agenda-files t)))
         (if (and (buffer-modified-p) (buffer-file-name))
             (save-buffer))))))
+
+(advice-add 'org-agenda-quit :before 'gk/save-all-agenda-buffers)
+; (advice-add 'org-refile :after 'gk/save-all-agenda-buffers)
 
 ;; save all the agenda files after each capture
 (run-with-idle-timer 1 30 'gk/save-all-agenda-buffers)
