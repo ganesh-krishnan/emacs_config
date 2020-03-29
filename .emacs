@@ -506,6 +506,11 @@
   (org-pomodoro)
   )
 
+(defun gk/org-pomodoro-clock-in-last ()
+  (setq org-pomodoro-length 20)
+  (org-pomodoro '(16))
+  )
+
 (defun gk/org-pomodoro-kill ()
   (interactive)
   (when (org-pomodoro-active-p)
@@ -616,11 +621,25 @@
 	       (org-agenda-files '("~/org/housekeep.org"))
 	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-scheduled-before-today))))))
 
+(defun gk1/weekly-tasks-grp1 ()
+  `(org-ql-block '(and (todo "SUBTASK")
+		       (property "WEEKLY_REVIEW_GRP1" "t")
+		       `,(org-query-gtd-scheduled-before-today))
+	      ((org-ql-block-header "Default Review")
+	       (org-agenda-files '("~/org/housekeep.org")))))
+
 (defun gk/weekly-tasks-grp2 ()
   '(tags-todo "WEEKLY_REVIEW_GRP2=\"t\""
 	      ((org-agenda-overriding-header "Other Tasks")
 	       (org-agenda-files '("~/org/housekeep.org"))
 	       (org-agenda-skip-function (org-query-select "headline" (org-query-gtd-scheduled-before-today))))))
+
+(defun gk1/weekly-tasks-grp2 ()
+  `(org-ql-block '(and (todo "SUBTASK")
+		       (property "WEEKLY_REVIEW_GRP2" "t")
+		       `,(org-query-gtd-scheduled-before-today))
+	      ((org-ql-block-header "Other Tasks")
+	       (org-agenda-files '("~/org/housekeep.org")))))
 
 (defun gk/stuck-projects ()
   '(tags-todo "/+PROJ"
@@ -716,12 +735,17 @@
 				    "~/org/habits.org"
 				    "~/org/other.org"))
 
+(setq gk/org-files (append '("~/org/supplementary/diary.org"
+			     "~/org/supplementary/reference.org"
+			     "~/org/supplementary/reviews.org")
+			   (org-agenda-files t)))
+
 
 (defun gk/save-all-agenda-buffers ()
   (dolist (buf (buffer-list))
     (with-current-buffer buf
       (when (member (buffer-file-name)
-                    (mapcar 'expand-file-name (org-agenda-files t)))
+                    (mapcar 'expand-file-name gk/org-files))
         (if (and (buffer-modified-p) (buffer-file-name))
             (save-buffer))))))
 
@@ -744,7 +768,7 @@
 (load "org-subtask-reset")
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cc" 'org-capture)
-(setq org-archive-location "diary.org::datetree/* Archived Tasks")
+(setq org-archive-location "~/org/supplementary/diary.org::datetree/* Archived Tasks")
 (setq org-log-done t)
 (setq org-log-reschedule nil)
 (setq org-clock-out-remove-zero-time-clocks t)
@@ -777,10 +801,10 @@
 	 nil)
 	("W" "Weekly Review"
 	 (,(gk/weekly-review)
-	  ,(gk/habits)
+	  ,(gk1/habits)
 	  ,(gk/agendablock-inbox)
 	  ,(gk/no-context)
-	  ,(gk/weekly-tasks-grp1)
+	  ,(gk1/weekly-tasks-grp1)
 	  ,(gk/stuck-projects)
 	  ,(gk/active-deferred-projects)
 	  ,(gk/active-current-visible-projects)
@@ -788,7 +812,7 @@
 	  ,(gk/suspended-projects)
 	  ,(gk/available-and-visible-tasks)
 	  ,(gk/power-lens)
-	  ,(gk/weekly-tasks-grp2)
+	  ,(gk1/weekly-tasks-grp2)
 	  ,(gk/review-clock-report)
 	  ,(gk/review-frequently-rescheduled)
 	  ,(gk/weekly-review)
