@@ -411,6 +411,10 @@
   (setq python-shell-interpreter-args "--simple-prompt --matplotlib tk")
   (setq elpy-eldoc-show-current-function nil)
   (add-hook 'inferior-python-mode-hook 'company-mode)
+  (when (require 'flycheck nil t)
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode))
+
 
   (defun start-lore ()
     (interactive)
