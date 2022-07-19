@@ -459,12 +459,20 @@
 
 
 ;;Org stuff
-    (progn
-      (fset 'gk/listify
-	    (lambda (&optional arg) "Keyboard macro."
-	      (interactive "p")
-	      (kmacro-exec-ring-item
-	       (quote ([33554435 33554435 1 42 42 32 79 80 84 73 79 78 83 32 7 5] 0 "%d")) arg))))
+(setq diary-file "~/.emacs.d/diary")
+
+;; Load diary-lib to make diary-float function available
+;; This function is used for setting up tasks that repeat
+;; on the 3rd Sunday of the month etc.
+(require 'diary-lib)
+(if (file-exists-p "~/emacs_config/lisp/next-spec-day.el")
+    (load "~/emacs_config/lisp/next-spec-day.el"))
+(progn
+  (fset 'gk/listify
+	(lambda (&optional arg) "Keyboard macro."
+	  (interactive "p")
+	  (kmacro-exec-ring-item
+	   (quote ([33554435 33554435 1 42 42 32 79 80 84 73 79 78 83 32 7 5] 0 "%d")) arg))))
 
 ;; Org work timer stuff
 (use-package org-pomodoro
